@@ -12,14 +12,14 @@ Use key-value stores to create an image search portal.
 Create disk-based key/value stores:
 
 ```bash
-$ python indexer.py -d --filter=Azh --kvs=shelf
+$ python indexer.py -d --filter=Azh --kvs=disk
 ```
 
 
 Create cloud-based key/value stores:
 
 ```bash
-$ python indexer.py -d --filter=Azh --kvs=dynamodb
+$ python indexer.py -d --filter=Azh --kvs=cloud
 ```
 
 
