@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSCI-398: A2 Image Search</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="default.css">
+<div id="search" class="container">
+<p class="lead">Image search</p>
+  <form class="form-inline" action="/api/search" method="get">
+    <input type="text" class="form-control" name="t">
+    <button type="submit" class="btn btn-default">Search</button>
+    <p class="help-block">Author: Shakir James (shakirjames)</p>
+  </form>
+
+  <div class="simple-thumbnails">
+    <div class="row">
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://en.wikipedia.org/wiki/Special:FilePath/AzharUsman.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"></a></div>
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://en.wikipedia.org/wiki/Special:FilePath/Azhar_-_Live_in_Holland_2004.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"></a></div>
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://commons.wikimedia.org/wiki/Special:FilePath/Azhihe_Bridge-1.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"> </a> </div>
+      <div class="col-md-3 col-xs-6"> <a href="#" class="thumbnail"><img alt="100%x180" src="http://en.wikipedia.org/wiki/Special:FilePath/Azharuddin_Mohammed_Ismail.JPG" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"> </a> </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://commons.wikimedia.org/wiki/Special:FilePath/Azhikode_Munakkal_-_Estuary_(Hari_Bhagirath).jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"></a></div>
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://commons.wikimedia.org/wiki/Special:FilePath/Com_azhikodan.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"></a></div>
+      <div class="col-md-3 col-xs-6"><a href="#" class="thumbnail"><img alt="100%x180" src="http://commons.wikimedia.org/wiki/Special:FilePath/Gulikan_vellattam.jpg" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"> </a> </div>
+      <div class="col-md-3 col-xs-6"> <a href="#" class="thumbnail"> <img alt="100%x180" src="http://commons.wikimedia.org/wiki/Special:FilePath/Quetzalcoatlus_1.JPG" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;"> </a> </div>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">v0.1b</p>
+  </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
