@@ -1,0 +1,8 @@
+// install requirements
+ python -m pip install -r /c/udc-csci-398-a2/requirements --ignore-installed
+
+ 
+ 
+ //Unicode() error on parser.py
+ #line = unicode(line)
+ #line = str(line, 'utf-8')  //tried this but wouldn't work either

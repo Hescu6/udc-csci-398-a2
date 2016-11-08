@@ -29,8 +29,8 @@ from __future__ import print_function
 import logging
 
 from argparse import ArgumentParser, FileType
-from kvs import Dict, DynamoDB, Shelf
-from parser import image_iterator, label_iterator, Stemmer
+from .kvs import Dict, DynamoDB, Shelf
+from .parser_a import image_iterator, label_iterator, Stemmer
 
 IMAGES_KVS_NAME = 'images'
 TERMS_KVS_NAME = 'terms'
@@ -48,56 +48,36 @@ def parse_args(prog='loader', description='Wiki loader.'):
     parser.add_argument(
         '--kvs', choices=STORAGE_CHOICES.keys(), default='disk')
     parser.add_argument(
-        '--images', type=FileType('r'), default='../data/images_en.nt')
+        '--images', type=FileType('r'), default='./data/images_en.nt')
     parser.add_argument(
-        '--labels', type=FileType('r'), default='../data/labels_en.nt')
+        '--labels', type=FileType('r'), default='./data/labels_en.nt')
     return parser.parse_args()
 
 
 def load_images(kvs, image_iterator):
-    """Build index from image data.
+  
+	logging.debug('load_images{}'.format(kvs))
 
-    Store images in KVS where the key is the Wikipedia category and the value
-    is the image URL.
+	for category, url in image_iterator:
+		logging.debug('image {} => {}'.format(category, url))
+		kvs.put( category, url)
 
-    For example, store the entry:
-    key: http://dbpedia.org/resource/American_National_Standards_Institute
-    value: http://upload.wikimedia.org/wikipedia/commons/8/8f/ANSI_logo.GIF
-
-    Args:
-        kvs: object, key-value store to store image category, URL pairs
-        image_iterator: generator, yields (category, URL) pairs
-    """
-    pass
-
+		
 
 def load_terms(kvs, images_kvs, label_iterator):
-    """Build "inverted index" from labels data.
 
-    Store labels in KVS where the key is a word from the label and the value
-    is the Wikipedia category. The label is broken into separate words and
-    stemmed.
-
-    For example, given the label "American National Standards Institute",
-    store the following entries:
-    key: american
-    value: http://dbpedia.org/resource/American_National_Standards_Institute
-
-    key: nate
-    value: http://dbpedia.org/resource/American_National_Standards_Institute
-
-    key: standard
-    value: http://dbpedia.org/resource/American_National_Standards_Institute
-
-    key: institut
-    value: http://dbpedia.org/resource/American_National_Standards_Institute
-
-    Args:
-        kvs: object, key-value store (modified label, category) pairs
-        label_iterator: generator, yields (category, label) pairs
-    """
-    pass
-
+    stemmer = Stemmer()
+    logging.debug('load_terms {}'.format(kvs))
+    for category, label in label_iterator:
+        if category not in images_kvs:  # TODO
+            continue
+        words = label.split()
+        for word in words:
+            stemmed = stemmer.stem(word)  # FIXME
+            kvs.put(stemmed, category)  # TODO
+            logging.debug('label {} ({}) => {}'.format(
+                word, stemmed, category))
+	
 def main():
     args = parse_args()
     if args.debug:

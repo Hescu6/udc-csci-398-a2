@@ -35,30 +35,28 @@ terms_kvs = Shelf('a2m1/' + TERMS_KVS_NAME)
 
 logging.basicConfig(level=logging.DEBUG)
 
+@app.route('/api/name')
+def name():
+    result = {'name': "Hildebrando Escudero (hildebrandoescudero)"}  # TODO change
+    return Response(json.dumps(result), mimetype='application/json')
+
+
 
 @app.route('/api/search', methods=['GET'])
 def search(images_kvs=images_kvs, terms_kvs=terms_kvs):
-    """Return JSON search results
-
-    The response format
-    {
-      "searchInformation": {
-        "totalResults": integer
-      }
-      "items": [
-        {
-          "link": string
-        }
-      ]
-    }
-    """
+    
     terms = request.args.get('t')
     num = int(request.args.get('num', 100))
-    matches = []  # TODO matches = query()
-    results = {}  # TODO build from matches
-    #
-    # TODO
-    #
+
+    matches = []
+
+    if terms:
+        matches = []
+        matches = query(terms, images_kvs, terms_kvs) # TODO (Note: term1 term 2 ... )
+    results = {
+        'searchInformation': {'totalResults': len(matches)},
+        'items': [{'link': link} for link in matches[:num]]
+    }
     return Response(json.dumps(results), mimetype='application/json')
 
 

@@ -1,3 +1,34 @@
++
++var Author = React.createClass({
++  getInitialState: function() {
++    return {name: ''};
++  },
++ componentDidMount: function(searchText) {
++    $.ajax({
++      url: this.props.url,
++      dataType: 'json',
++      type: 'GET',
++      success: function(data) {
++        this.setState({name: data['name']});
++      }.bind(this),
++      error: function(xhr, status, err) {
++        console.error(this.props.url, status, err.toString());
++      }.bind(this)
++    });
++  },
++  componentWillUnmount: function() {
++    this.serverRequest.abort();
++  },
++  render: function() {
++    // TODO
++    return (
++      <p className="help-block">Author: Hildebrando Escudero</p>
++    );
++  }
++});
+
+
+
 var Thumbnail = React.createClass({
   render: function() {
     var divStyle = {
@@ -58,6 +89,7 @@ var SearchBar = React.createClass({
     }
     this.props.onUserInput(text);
   },
+  
   render: function() {
     return (
       <div>
@@ -70,7 +102,7 @@ var SearchBar = React.createClass({
             ref="searchTextInput"
           />
           <button type="submit" className="btn btn-default">Search</button>
-          <p className="help-block">Author: Shakir James (shakirjames)</p>
+          <p className="help-block">Author: Hildebrando Escudero (Hildebrando.Escudero)</p>
         </form>
       </div>
     );

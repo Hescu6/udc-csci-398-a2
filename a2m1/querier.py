@@ -21,7 +21,7 @@ from __future__ import print_function
 import argparse
 import logging
 
-from loader import (
+from .loader import (
     IMAGES_KVS_NAME, TERMS_KVS_NAME, STORAGE_CHOICES, Stemmer)
 
 
@@ -35,7 +35,40 @@ def parse_args(prog='querier', description='Image querier.'):
 
 
 def query(keywords, images_kvs, terms_kvs):
-    """Find images that match keywords.
+	
+	matches = []
+	stemmer = Stemmer()
+	#for each keyword
+	for keyword in keywords:
+			
+	# get matching Wikipedia category from the terms KVS
+		try:
+			word = stemmer.stem(keyword) # TODO
+			logging.debug('keyword {} ({})'.format(keyword, word))
+
+			categories = terms_kvs.get(word)
+				
+				
+				
+			logging.debug('categories {}'.format(categories))
+		except KeyError:
+			continue
+		for category in categories:
+			# get URLs matching category from the images KVS
+			try:
+			
+			
+				urls = images_kvs.get(category)
+				#urls = STORAGE_CHOICES[word](1)  # TODO
+				#urls = images_kvs.values()[1]			
+				
+				logging.debug('urls {}'.format(urls))
+				matches += urls
+			except KeyError:
+				continue
+	return matches
+
+"""Find images that match keywords.
 
     This function open connections to both the terms and images key/value
     stores. For each keyword, it retrieves the matching Wikipedia category
@@ -49,8 +82,8 @@ def query(keywords, images_kvs, terms_kvs):
 
     Returns:
         list of image urls matching keywords
-    """
-    pass
+"""
+    
 
 
 def main():
